@@ -11,6 +11,19 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Winter Theme Variables */
+  --winter-primary: #1e3a5f;
+  --winter-secondary: #4a90e2;
+  --winter-accent: #88c0d0;
+  --winter-light: #e5f2f9;
+  --winter-white: #f8fbfd;
+  --winter-snow: #ffffff;
+  --winter-frost: rgba(255, 255, 255, 0.15);
+  --winter-ice: rgba(136, 192, 208, 0.2);
+  --winter-gold: #d4af37;
+  --winter-red: #c94c4c;
+  --winter-green: #2d5f3f;
 }
 
 a {

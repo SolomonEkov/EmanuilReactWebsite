@@ -4,6 +4,7 @@ import "./App.css";
 import "./styles/shared.css";
 import "./styles/FooterModern.css";
 import "./styles/LegalPagesModern.css";
+import "./styles/WinterTheme.css"; // Winter theme decorations
 import "./i18n/i18n"; // Import i18n configuration
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -22,6 +23,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import Toast from "./components/Toast";
 import Payment from "./components/Payment";
 import PaymentSuccess from "./components/PaymentSuccess";
+import Snowfall from "./components/Snowfall"; // Winter snowfall effect
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -440,6 +442,9 @@ function App() {
         type={toast.type}
         onClose={() => setToast({ ...toast, isVisible: false })}
       />
+      
+      {/* Winter Theme Snowfall Effect */}
+      <Snowfall snowflakeCount={50} />
     </div>
   );
 }

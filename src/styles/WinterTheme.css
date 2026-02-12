@@ -1,0 +1,156 @@
+/* Winter Theme Decorations - Minimal & Professional */
+
+/* Subtle frost effect for cards and containers */
+.winter-frost {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Winter glow effect */
+.winter-glow {
+  box-shadow: 0 0 20px rgba(136, 192, 208, 0.3),
+              0 0 40px rgba(136, 192, 208, 0.1);
+}
+
+/* Snowflake accent decorations */
+.winter-accent::before {
+  content: '❄';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 30px;
+  opacity: 0.1;
+  color: var(--winter-accent);
+  pointer-events: none;
+}
+
+/* Frost border effect */
+.frost-border {
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 -2px 10px rgba(136, 192, 208, 0.2);
+}
+
+/* Winter gradient backgrounds */
+.winter-gradient-subtle {
+  background: linear-gradient(
+    180deg,
+    var(--winter-white) 0%,
+    var(--winter-light) 100%
+  );
+}
+
+.winter-gradient-blue {
+  background: linear-gradient(
+    135deg,
+    var(--winter-primary) 0%,
+    var(--winter-secondary) 100%
+  );
+}
+
+/* Icy shimmer effect */
+@keyframes icy-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.winter-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: icy-shimmer 3s ease-in-out infinite;
+}
+
+/* Christmas touch - minimal ornamental corners */
+.christmas-corner::before,
+.christmas-corner::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.08;
+}
+
+.christmas-corner::before {
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle at top left, var(--winter-gold) 0%, transparent 70%);
+}
+
+.christmas-corner::after {
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(circle at bottom right, var(--winter-red) 0%, transparent 70%);
+}
+
+/* Winter button styling */
+.winter-button {
+  background: linear-gradient(135deg, var(--winter-secondary) 0%, var(--winter-accent) 100%);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.winter-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+/* Subtle snow pile effect for bottom of elements */
+.snow-pile::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50%;
+}
+
+/* Winter sparkle effect */
+@keyframes winter-sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+.winter-sparkle {
+  animation: winter-sparkle 2s ease-in-out infinite;
+}
+
+/* Frosted glass card effect */
+.frosted-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(30, 58, 95, 0.1);
+  border-radius: 12px;
+}
+
+/* Winter text shadow for headers */
+.winter-text {
+  text-shadow: 0 2px 10px rgba(136, 192, 208, 0.3);
+}

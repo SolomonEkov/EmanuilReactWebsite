@@ -953,8 +953,8 @@ h6 {
 .schedule-item::before {
 	content: '';
 	position: absolute;
-	left: 16px;
-	top: 50%;
+	left: 14px;
+	top: 40%;
 	transform: translateY(-50%);
 	width: 10px;
 	height: 10px;
@@ -1002,7 +1002,7 @@ h6 {
 	}
 
 	.schedule-item::before {
-		left: 12px;
+		left: 10px;
 	}
 }
 

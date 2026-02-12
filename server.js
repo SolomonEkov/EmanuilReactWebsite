@@ -139,10 +139,10 @@ app.get('/api/contact', async (req, res) => {
       orderBy: { createdAt: 'desc' },
       take: limit
     });
-    res.json(submissions);
+    res.json({ success: true, contacts: submissions });
   } catch (error) {
     console.error('Database error:', error);
-    res.status(500).json({ error: 'Failed to fetch contact submissions' });
+    res.status(500).json({ success: false, error: 'Failed to fetch contact submissions' });
   }
 });
 
@@ -155,10 +155,10 @@ app.get('/api/prayers', async (req, res) => {
       orderBy: { createdAt: 'desc' },
       take: limit
     });
-    res.json(requests);
+    res.json({ success: true, prayers: requests });
   } catch (error) {
     console.error('Database error:', error);
-    res.status(500).json({ error: 'Failed to fetch prayer requests' });
+    res.status(500).json({ success: false, error: 'Failed to fetch prayer requests' });
   }
 });
 

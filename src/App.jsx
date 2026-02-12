@@ -38,11 +38,47 @@ function App() {
     message: "",
     type: "info",
   });
+  const [winterMode, setWinterMode] = useState(false);
 
   // Show the popup only if the user hasn't selected a language
   const [showLanguagePopup, setShowLanguagePopup] = useState(() => {
     return !localStorage.getItem("hasSelectedLanguage");
   });
+
+  // Fetch theme settings on mount and poll for updates
+  useEffect(() => {
+    const fetchThemes = async () => {
+      try {
+        const response = await fetch("/api/themes");
+        const data = await response.json();
+
+        if (data.success && data.themes) {
+          setWinterMode(data.themes.winter || false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch themes:", error);
+      }
+    };
+
+    // Initial fetch
+    fetchThemes();
+
+    // Poll for theme changes every 5 seconds
+    const pollInterval = setInterval(fetchThemes, 5000);
+
+    // Listen for custom theme update events (for immediate updates)
+    const handleThemeUpdate = (event) => {
+      if (event.detail && event.detail.themes) {
+        setWinterMode(event.detail.themes.winter || false);
+      }
+    };
+    window.addEventListener("themeUpdated", handleThemeUpdate);
+
+    return () => {
+      clearInterval(pollInterval);
+      window.removeEventListener("themeUpdated", handleThemeUpdate);
+    };
+  }, []);
 
   // No need for language popup logic here, handled in useState and handleLanguageSelect
 
@@ -131,7 +167,7 @@ function App() {
                 <div className="legal-subtitle">
                   {t(
                     "legal.terms.subtitle",
-                    "Legal Terms and Conditions for Website Usage"
+                    "Legal Terms and Conditions for Website Usage",
                   )}
                 </div>
                 <div className="last-updated-modern">
@@ -149,7 +185,7 @@ function App() {
                   <p>
                     {t(
                       "legal.contactText",
-                      "If you have any questions about these terms, please contact us at info@emanuil.be"
+                      "If you have any questions about these terms, please contact us at info@emanuil.be",
                     )}
                   </p>
                 </div>
@@ -166,7 +202,7 @@ function App() {
                 <div className="legal-subtitle">
                   {t(
                     "legal.privacy.subtitle",
-                    "How We Protect and Use Your Information"
+                    "How We Protect and Use Your Information",
                   )}
                 </div>
                 <div className="last-updated-modern">
@@ -179,7 +215,7 @@ function App() {
                   <p>
                     {t(
                       "legal.importantText",
-                      "Your privacy is important to us. This policy explains how we handle your information."
+                      "Your privacy is important to us. This policy explains how we handle your information.",
                     )}
                   </p>
                 </div>
@@ -193,7 +229,7 @@ function App() {
                   <p>
                     {t(
                       "legal.contactText",
-                      "If you have any questions about this privacy policy, please contact us at info@emanuil.be"
+                      "If you have any questions about this privacy policy, please contact us at info@emanuil.be",
                     )}
                   </p>
                 </div>
@@ -212,7 +248,7 @@ function App() {
             <p>
               {t(
                 "payment.cancelled.message",
-                "Your payment was cancelled. You can try again anytime."
+                "Your payment was cancelled. You can try again anytime.",
               )}
             </p>
             <button onClick={() => navigate("/")} className="btn-primary">
@@ -442,9 +478,9 @@ function App() {
         type={toast.type}
         onClose={() => setToast({ ...toast, isVisible: false })}
       />
-      
+
       {/* Winter Theme Snowfall Effect */}
-      <Snowfall snowflakeCount={50} />
+      {winterMode && <Snowfall snowflakeCount={50} />}
     </div>
   );
 }

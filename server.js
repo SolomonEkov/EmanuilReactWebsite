@@ -189,6 +189,83 @@ app.get('/api/test-db', async (req, res) => {
   }
 });
 
+// === THEME MANAGEMENT ENDPOINTS ===
+
+// Get all theme settings
+app.get('/api/themes', async (req, res) => {
+  try {
+    // Get winter theme setting
+    const winterSetting = await prisma.siteSetting.findUnique({
+      where: { key: 'winter_theme_enabled' }
+    });
+
+    const isWinterEnabled = winterSetting?.value === 'true';
+
+    res.json({
+      success: true,
+      themes: {
+        winter: isWinterEnabled
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching theme settings:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch theme settings'
+    });
+  }
+});
+
+// Update theme settings (admin only)
+app.post('/api/themes', async (req, res) => {
+  try {
+    const { theme, enabled, adminEmail } = req.body;
+
+    if (!theme || enabled === undefined) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: theme, enabled'
+      });
+    }
+
+    if (theme !== 'winter') {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid theme. Only "winter" is supported.'
+      });
+    }
+
+    // Upsert the setting
+    await prisma.siteSetting.upsert({
+      where: { key: 'winter_theme_enabled' },
+      update: {
+        value: String(enabled),
+        updatedBy: adminEmail || 'admin'
+      },
+      create: {
+        key: 'winter_theme_enabled',
+        value: String(enabled),
+        updatedBy: adminEmail || 'admin'
+      }
+    });
+
+    console.log(`Theme '${theme}' ${enabled ? 'enabled' : 'disabled'} by ${adminEmail || 'admin'}`);
+
+    res.json({
+      success: true,
+      message: `Winter theme ${enabled ? 'enabled' : 'disabled'}`,
+      theme: 'winter',
+      enabled
+    });
+  } catch (error) {
+    console.error('Error updating theme settings:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update theme settings'
+    });
+  }
+});
+
 // === ADMIN ENDPOINTS ===
 
 // Admin login authentication
